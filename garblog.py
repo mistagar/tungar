@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
@@ -6,13 +6,19 @@ app = Flask(__name__)
 def home():
     return "<h1>Homepage</h1>"
 
-'''@app.route("/posts/<int:id>")
-def posts(id):
-    return "This is post :" + str(id)'''
-
-@app.route("/posts", methods = ["GET"])
+@app.route("/posts")
 def post():
-    return "All posts"
+    posts ={
+        "1": "First Post",
+        "2": "Second Post",
+        "3": "Third Posts"
+    }
+    return jsonify(posts)
+
+
+@app.route("/posts/<int:id>", methods=["GET"])
+def posts(id):
+    return "This is post :" + str(id)
 
 @app.route("/posts/create", methods = ["POST"])
 def create():
